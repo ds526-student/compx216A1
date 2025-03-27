@@ -90,10 +90,7 @@ class ZenPuzzleGarden(Problem):
         # Task 2
         # Return a boolean value indicating if a given state is solved.
         # Replace the line below with your code.
-        # return all(all(cell == "rock" for cell in row) for row in state[0])
-        
-        return all(all(cell for cell in row) for row in state[0])
-    
+
         # get the game map
         map = state[0]
         height = len(map)
@@ -141,6 +138,8 @@ def beam_search(problem, f, beam_width):
             # get the children of the node
             for action in problem.actions(node.state):
                 child = node.child_node(problem, action)
+                if problem.goal_test(child.state):
+                    return child
                 next_frontier.append(child)
         # sort the frontier by cost        
         next_frontier.sort(key=f)
